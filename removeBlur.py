@@ -1,12 +1,14 @@
 try:
+    from time import sleep
     from platform import system
     from selenium import webdriver
 except Exception as error:
     print(f'não foi possivel importar as bibliotecas\n{error}')
+finally:
+    print(f'bibliotecas importadas')
 
 
 def getWebDriver():
-    print('obtendo o WebDriver...')
     os = system().lower()
     if os == 'windows':
         return webdriver.Chrome(executable_path=r'chromedriver_win32/chromedriver.exe')
@@ -16,4 +18,30 @@ def getWebDriver():
         return webdriver.Chrome(executable_path=r'chromedriver_mac64/chromedriver.exe')
 
 
+def openURL(url):
+    browser.delete_all_cookies()
+    try:
+        browser.get(url)
+    except Exception:
+        print('Não foi possivel conectar ao site\n\n')
+        print(Exception)
+        exit()
+
+
+def removeBlur():
+    script = """
+    (() => {
+        const blockedElements = document.querySelectorAll('.blocked')
+        blockedElements.forEach(element => element.classList.remove('blocked'))
+    })();
+    """
+    browser.execute_script(script)
+
+
+while True:
+    link = input('copie e cole o link aqui: ').strip()
+    if len(link) > 0:
+        break
 browser = getWebDriver()
+openURL(link)
+removeBlur()
