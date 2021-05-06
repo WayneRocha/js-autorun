@@ -1,5 +1,4 @@
 try:
-    from time import sleep
     from platform import system
     from selenium import webdriver
 except Exception as error:
