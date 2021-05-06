@@ -4,8 +4,6 @@ try:
     from selenium import webdriver
 except Exception as error:
     print(f'não foi possivel importar as bibliotecas\n{error}')
-finally:
-    print(f'bibliotecas importadas')
 
 
 def getWebDriver():
@@ -28,7 +26,7 @@ def openURL(url):
 
 
 def removeBlur():
-    script = '\n'.join(open('scriptJS.txt').readlines())
+    script = '\n'.join(open('scriptJS.js', mode='r').readlines())
     browser.execute_script(script)
 
 
