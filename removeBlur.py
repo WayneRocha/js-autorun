@@ -22,19 +22,13 @@ def openURL(url):
     browser.delete_all_cookies()
     try:
         browser.get(url)
-    except Exception:
+    except:
         print('Não foi possivel conectar ao site\n\n')
-        print(Exception)
         exit()
 
 
 def removeBlur():
-    script = """
-    (() => {
-        const blockedElements = document.querySelectorAll('.blocked')
-        blockedElements.forEach(element => element.classList.remove('blocked'))
-    })();
-    """
+    script = '\n'.join(open('scriptJS.txt').readlines())
     browser.execute_script(script)
 
 
