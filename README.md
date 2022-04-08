@@ -1,3 +1,3 @@
-# auto-run-JS-in-webpage
-auto run a custom JS script in any web page when opens with webdriver library
+# JS Auto Run
 
+Browser extension that automaticaly run a JS code of your choice in websites
