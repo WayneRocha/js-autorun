@@ -1,19 +1,3 @@
-function renderScripts(scripts, $el) {
-    scripts.forEach(script => {
-        $el.innerHTML += `
-        <div class="m-4">
-      <div class="input-group">
-        <span class="input-group-text">url</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="${script.whereToExecute}">
-      </div>
-      <div class="input-group">
-        <span class="input-group-text">code</span>
-        <textarea class="form-control" aria-label="code">${script.content}</textarea>
-      </div>
-    </div>
-        `;
-    });
-}
 (() => {
     const scriptsList = {
         "scriptsList": [
@@ -29,5 +13,7 @@ function renderScripts(scripts, $el) {
     };
 
     chrome.storage.sync.set(scriptsList);
-    renderScripts(scriptsList.scriptsList, document.getElementById('scripts'));
+    //renderScripts(scriptsList.scriptsList, document.getElementById('scripts'));
 })();
+
+hljs.highlightAll();
