@@ -48,10 +48,11 @@ a {
 }
 
 .script-items-list {
-    max-height: 180px;
+    height: 220px;
 }
+
 .menu-items-list {
-    max-height: 104px;
+    height: 80px;
 }
 
 /* menu */
@@ -146,7 +147,7 @@ ul {
 
 .hljs {
     max-height: 200px;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 1;
     color: #fafafa;
     background: #0D0D0D;
@@ -188,6 +189,7 @@ ul {
 }
 
 input[type=text], input[type=number] {
+    color: #FAFAFA;
     width: 100%;
     border: 2px solid #aaa;
     border-radius: 4px;
@@ -204,7 +206,6 @@ input[type=text]:focus {
     box-shadow: 0 0 8px 0 dodgerBlue;
 }
 input[type=number]{
-    color: #FAFAFA;
     background-color: transparent;
     max-width: 64px;
 }
