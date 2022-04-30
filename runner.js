@@ -1,5 +1,5 @@
 (async() => {
-  function runInCurrentTab({ where }) {
+  function runInCurrentTab(where) {
     return where.some(url => {
       return window.location.href === url || window.location.host === url || window.location.hostname === url || window.location.origin === url;
     });
@@ -10,19 +10,17 @@
     $scriptDispatcherElement.style.display = "none";
     $scriptDispatcherElement.setAttribute('onclick', `javascript:(() => {${script}})();`);
     $scriptDispatcherElement.dispatchEvent(new Event('click'));
-    $scriptDispatcherElement.remove();
   }
 
   function getScriptList() {
-    return new Promise(resolve => chrome.storage.sync.get(["scriptsList"], (result) => resolve(result.scriptsList)));
+    return new Promise(resolve => chrome.storage.local.get(["scriptsList"], (result) => resolve(result.scriptsList)));
   }
 
   function getScript() {
     return new Promise(async (resolve, reject) => {
       try {
         const scripts = await getScriptList();
-        console.log(JSON.stringify(scripts));
-        scripts.scriptList.forEach(script => {
+        scripts.forEach(script => {
           if (runInCurrentTab(script.where)) {
             resolve(script.content);
           }

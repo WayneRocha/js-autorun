@@ -18,15 +18,26 @@
         {
             "id": Math.random().toString().replace(".", ""),
             "run": true,
-            "name": "Hello world",
-            "content": "alert('hello wolrd');",
-            "where": ["https://context.reverso.net/traducao/espanhol-portugues/ni%C3%B1a"],
-            "timeOut": 3
+            "name": "Remove blur context.reverso.net",
+            "content": `const blockedElements = document.querySelectorAll('.blocked');
+const bannerElement = document.querySelector('#blocked-results-banner');
+
+blockedElements.forEach(element => element.classList.remove('blocked'));
+bannerElement.remove();`,
+            "where": ["context.reverso.net"],
+            "timeOut": 0
         }
     ];
 
     function setScripts(scripts) {
-        chrome.storage.sync.set({ "scriptsList": scripts });
+        chrome.storage.local.set({ "scriptsList": scripts });
+    }
+    function detailsFrameIsEmpty(){
+        if (document.querySelectorAll('.active').length === 0) {
+            document.querySelector(".script-container").classList.add('no-scripts');
+        } else {
+            document.querySelector(".script-container").classList.remove('no-scripts');
+        }
     }
 
     function runInCurrentTab({ where }) {
@@ -36,8 +47,11 @@
     }
 
     function renderScriptsList(scriptsList) {
+        const $scriptsList = document.querySelector('.script-items-list');
+        const $runningScriptsList = document.querySelector('.menu-items-list');
+
         scriptsList.forEach(async(script) => {
-            document.querySelector('.script-items-list').innerHTML += `
+            $scriptsList.innerHTML += `
             <li class="menu-item" data-script-id="${script.id}">
             <p>${script.name}</p>
             <div class="switch"></div>
@@ -45,15 +59,14 @@
             `;
 
             if (runInCurrentTab(script)) {
-                document.querySelector('.menu-items-list').innerHTML += `
+                $runningScriptsList.innerHTML += `
                 <li class="menu-item" data-script-id="${script.id}">
                     <p>${script.name}</p>
-                    <div class="switch"></div>
                 </li>
                 `;
             }
+            detailsFrameIsEmpty()
         });
-
         const $menuItems = [...document.querySelectorAll('.menu-item')];
         $menuItems.forEach($item => {
             $item.addEventListener('click', (e) => {
@@ -63,11 +76,12 @@
                 renderScriptDetails(scriptId);
             });
         });
+
         renderScriptDetails(scriptsList[0].id);
     }
 
     function renderScriptDetails(scriptId) {
-        chrome.storage.sync.get(["scriptsList"], (result) => {
+        chrome.storage.local.get(["scriptsList"], (result) => {
             const { name, content, where, timeOut } = result.scriptsList.find(script => script.id == scriptId);
             if (!result.scriptsList) return;
 
@@ -82,6 +96,7 @@
             document.querySelector("#dispatch-after-seconds").setAttribute('data-script-id', scriptId);
 
             hljs.highlightAll();
+            detailsFrameIsEmpty();
         });
     }
 

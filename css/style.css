@@ -152,6 +152,19 @@ ul {
     color: #FAFAFA;
 }
 
+.script-container.no-scripts .container {
+    display: none;
+}
+.script-container.no-scripts::before {
+    content: url(../128.png);
+    filter: saturate(0) opacity(.3);
+}
+.script-container.no-scripts::after {
+    content: "No script selected";
+    font-size: 16pt;
+    font-weight: 500;
+}
+
 .script-container .container {
     padding: 1rem;
 }
