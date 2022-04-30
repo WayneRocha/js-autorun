@@ -45,14 +45,25 @@ a {
 
 .script-container .container, .script-items-list, .menu-items-list {
     overflow-y: auto;
+    color: #FAFAFA;
 }
 
 .script-items-list {
     height: 220px;
 }
 
+.script-items-list:empty::before {
+    content: "There are no scripts saved";
+    padding: 2rem;
+}
+
 .menu-items-list {
     height: 80px;
+}
+
+.menu-items-list:empty::before {
+    content: "There are no scripts running";
+    padding: 2rem;
 }
 
 /* menu */
