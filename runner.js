@@ -8,7 +8,7 @@
   function runScript(script) {
     const $scriptDispatcherElement = document.createElement('p');
     $scriptDispatcherElement.style.display = "none";
-    $scriptDispatcherElement.setAttribute('onclick', `javascript:(() => {${script}})();`);
+    $scriptDispatcherElement.setAttribute('onclick', `javascript:(() => { try { ${script} }catch(e){}   })();`);
     $scriptDispatcherElement.dispatchEvent(new Event('click'));
   }
 

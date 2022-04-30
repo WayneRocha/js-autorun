@@ -19,13 +19,18 @@
             "id": Math.random().toString().replace(".", ""),
             "run": true,
             "name": "Remove blur context.reverso.net",
-            "content": `const blockedElements = document.querySelectorAll('.blocked');
-const bannerElement = document.querySelector('#blocked-results-banner');
-
-blockedElements.forEach(element => element.classList.remove('blocked'));
-bannerElement.remove();`,
+            "content": `const remove = () => {
+                const blockedElements = document.querySelectorAll('.blocked, .mobile-hidden');
+        const bannerElement = document.querySelector('#blocked-results-banner');
+        
+        blockedElements.forEach(element => element.classList.remove('blocked', 'mobile-hidden'));
+        bannerElement.remove();
+        console.log("blur removed");
+    }
+    window.addEventListener('locationchange', remove);
+    remove();`,
             "where": ["context.reverso.net"],
-            "timeOut": 0
+            "timeOut": 5
         }
     ];
 
